@@ -1,0 +1,72 @@
+Use the Ubuntu installation guide from my repository to create the virtualenv using Ubuntu 22.04.
+
+Then the basic packages for data science projects:
+
+$ pip install tensorflow[and-cuda] keras matplotlib pandas numpy scikit-learn seaborn jupyterlab
+
+Check your CUDA:
+
+$ nvidia-smi
+Tue Mar 24 15:27:08 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 590.48.01              Driver Version: 590.48.01      CUDA Version: 13.1     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 2080 Ti     Off |   00000000:08:00.0  On |                  N/A |
+|  0%   27C    P8             22W /  250W |    1600MiB /  11264MiB |     17%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            4226      G   /usr/lib/xorg/Xorg                      206MiB |
+|    0   N/A  N/A            5124      G   /usr/bin/gnome-shell                    138MiB |
+|    0   N/A  N/A            8953      G   .../7967/usr/lib/firefox/firefox        451MiB |
+|    0   N/A  N/A           21375      C   ...top/ml/rapids-cuml/bin/python        258MiB |
+|    0   N/A  N/A           21588      C   ...top/ml/rapids-cuml/bin/python        230MiB |
+|    0   N/A  N/A           21779      C   ...top/ml/rapids-cuml/bin/python        298MiB |
++-----------------------------------------------------------------------------------------+
+
+And:
+
+$ nvcc -V
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2023 NVIDIA Corporation
+Built on Fri_Sep__8_19:17:24_PDT_2023
+Cuda compilation tools, release 12.3, V12.3.52
+Build cuda_12.3.r12.3/compiler.33281558_0
+
+If they check out proceed with the installation. Note there are multiple CUDAs so we can approach with the CUDA13 version of the project!
+
+Then from here:
+
+https://docs.rapids.ai/install/#system-req
+
+Select:
+
+Stable, pip, CUDA13, Standard #select your preferences but this should work just fine
+
+The command copied:
+
+$ pip install \
+    --extra-index-url=https://pypi.nvidia.com \
+    "cudf-cu13==26.2.*" "dask-cudf-cu13==26.2.*" "cuml-cu13==26.2.*" \
+    "cugraph-cu13==26.2.*" "nx-cugraph-cu13==26.2.*" "cuxfilter-cu13==26.2.*" \
+    "cucim-cu13==26.2.*" "pylibraft-cu13==26.2.*" "raft-dask-cu13==26.2.*" \
+    "cuvs-cu13==26.2.*" "nx-cugraph-cu13==26.2.*"
+
+Then start the jupyter lab:
+
+$ jupyterlab
+
+The sample codes are provided in this repository as RAPIDS-cuML.ipynb
+
+Easy enough. 
+
+Have fun and enjoy your GPU acceleration on your computer! 
