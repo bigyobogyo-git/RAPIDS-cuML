@@ -1,0 +1,93 @@
+Either a fresh Ubuntu or upgrade an existing Ubuntu 22.04.
+
+If upgrade was chosen then check the nvidia driver! If the system doesn't use proprietary driver then run:
+
+$ sudo ubuntu-drivers install
+
+this should install the nvidia drivers required for this machine.
+
+Check with:
+
+$ nvidia-smi
+Tue Apr  7 11:56:29 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 2080 Ti     Off |   00000000:08:00.0  On |                  N/A |
+|  0%   26C    P8             20W /  250W |    1348MiB /  11264MiB |      2%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            3024      G   /usr/lib/xorg/Xorg                      201MiB |
+|    0   N/A  N/A            4691      G   /usr/bin/gnome-shell                    139MiB |
+|    0   N/A  N/A            5449      G   ...exec/xdg-desktop-portal-gnome          3MiB |
+|    0   N/A  N/A            6730      G   .../4848/usr/lib/firefox/firefox        288MiB |
+|    0   N/A  N/A            8108      G   /usr/bin/nautilus                        14MiB |
+|    0   N/A  N/A            8339      C   .../Desktop/ml/rapids/bin/python        174MiB |
++-----------------------------------------------------------------------------------------+
+
+Then for easy install:
+
+$ sudo apt install python3-pip
+
+Then:
+
+$ sudo apt install pipx
+
+Then:
+
+$ pipx install virtualenv
+
+Then if the path error message appears:
+
+$ pipx ensurepath
+
+Restart the terminal! Then:
+
+$ pipx completions
+
+Then:
+
+$ virtualenv rapids
+
+Then activate the virtualenv!
+
+$ virtualenv rapids
+
+Then get the code from the rapids site:
+
+
+
+pip install \
+    --extra-index-url=https://pypi.nvidia.com \
+    "cudf-cu13==26.2.*" "dask-cudf-cu13==26.2.*" "cuml-cu13==26.2.*" \
+    "cugraph-cu13==26.2.*" "nx-cugraph-cu13==26.2.*" "cuxfilter-cu13==26.2.*" \
+    "cucim-cu13==26.2.*" "pylibraft-cu13==26.2.*" "raft-dask-cu13==26.2.*" \
+    "cuvs-cu13==26.2.*" "nx-cugraph-cu13==26.2.*"
+
+Then: 
+
+$ pip install pandas numpy matplotlib jupyterlab
+
+Then:
+
+$ jupyter lab
+
+And check if it is working or not! Files are downloadable from this repository and dataset can be downloaded from here:
+
+https://drive.google.com/file/d/1lozVDu93DYuUPyuDZIPYcxsiPzVCI4n3/view?pli=1
+
+Enjoy! 
+
+
+
+
