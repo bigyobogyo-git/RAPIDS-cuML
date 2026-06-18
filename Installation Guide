@@ -1,6 +1,6 @@
 Use the Ubuntu installation guide from my repository to create the virtualenv using Ubuntu 22.04.
 
-Then the basic packages for data science projects /keepping it minimal/:
+Then the basic packages for data science projects /keeping it minimal/:
 
 $ pip install matplotlib pandas numpy scikit-learn seaborn jupyterlab
 
