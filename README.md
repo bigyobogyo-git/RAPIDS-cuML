@@ -11,3 +11,8 @@ Github links:
 https://github.com/rapidsai
 
 https://github.com/rapidsai/cuml
+
+
+The link to the file to run the clustering test for Ubuntu-26.04:
+https://drive.google.com/file/d/154KRLmQkYN9xCvZnPMxHqaC7ow1ce0-g/view?usp=drive_link
+
