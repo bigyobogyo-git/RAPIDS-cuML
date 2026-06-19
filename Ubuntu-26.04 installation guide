@@ -1,0 +1,100 @@
+A quick look to see how the Ubuntu 26.04 behaves with cuml.
+
+A fresh Ubuntu 26.04.
+Select third parties software to have the latest nvidia drivers.
+
+$ nvidia-smi
+Fri Jun 19 16:13:24 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 595.71.05              Driver Version: 595.71.05      CUDA Version: 13.2     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 2080 Ti     Off |   00000000:08:00.0  On |                  N/A |
+|  0%   33C    P8             20W /  250W |    1520MiB /  11264MiB |      1%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            3172      G   /usr/bin/gnome-shell                    285MiB |
+|    0   N/A  N/A            4641      G   /usr/bin/Xwayland                         3MiB |
+|    0   N/A  N/A            5508      G   .../8107/usr/lib/firefox/firefox        544MiB |
+|    0   N/A  N/A           10331    C+G   ptyxis                                   53MiB |
+|    0   N/A  N/A           17906      C   ...apids-cuml-minimal/bin/python        570MiB |
+|    0   N/A  N/A           18017    C+G   /usr/bin/nautilus                        45MiB |
++-----------------------------------------------------------------------------------------+
+
+Create a virtualenv as follows:
+
+$ sudo apt install python3-pip
+
+This command dropped me an error:
+$ pip install virtualenv
+error: externally-managed-environment
+
+× This environment is externally managed
+╰─> To install Python packages system-wide, try apt install
+    python3-xyz, where xyz is the package you are trying to
+    install.
+    
+    If you wish to install a non-Debian-packaged Python package,
+    create a virtual environment using python3 -m venv path/to/venv.
+    Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make
+    sure you have python3-full installed.
+    
+    If you wish to install a non-Debian packaged Python application,
+    it may be easiest to use pipx install xyz, which will manage a
+    virtual environment for you. Make sure you have pipx installed.
+    
+    See /usr/share/doc/python3.14/README.venv for more information.
+
+note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
+hint: See PEP 668 for the detailed specification.
+
+Thus it goes like this:
+
+$ pip install virtualenv --break-system-packages
+
+If this error appears:
+
+WARNING: The script virtualenv is installed in '/home/xy/.local/bin' which is not on PATH.
+
+Add to the path with the following commands:
+
+$ echo 'export PATH="$PATH:/home/xy/.local/bin"' >> ~/.bashrc
+$ source ~/.bashrc
+
+Then create a virtualenv:
+
+$ virtualenv *any_name_you_like_to_use*
+
+Enter the virtualenv:
+
+$ source *any_name_you_like_to_use*
+
+Then:
+
+$ pip install matplotlib pandas numpy scikit-learn seaborn jupyterlab
+
+Then from the site:
+https://docs.rapids.ai/install/#system-req
+
+The code should be if you keep it minimal. It varies of course. 
+
+pip install \
+    "cudf-cu13==26.6.*" "cuml-cu13==26.6.*"
+
+Torch from here:
+https://pytorch.org/get-started/locally/
+
+The code should be like this:
+$ pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu132
+
+It should be in working condition now. I couldn't use the latest cuml packages on the Ubuntu 22.04 so I had install the 26.04 to have the latest for now. 
+Enjoy! 
