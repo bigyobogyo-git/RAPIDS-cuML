@@ -1,0 +1,70 @@
+Step by step guide for Lubuntu-26.04.
+
+A fresh install of Lubuntu-26.04.
+Select your preferences. I picked normal installation as it was installed on my desktop PC. Laptops may vary.
+After the installation:
+Menu
+Preferences
+Additional Drivers
+Then you need to change the X.Org X server to NVIDIA driver metapackage from nvidia-driver-595(proprietary). Note the drivers will be updated in time so later on
+driver version will change. I wouldn't advice do it manually. Way too long and poitnless unless someone wants to learn how it can be done manually. 
+Apply changes
+Restart. 
+
+This should sort the drivers.
+Run:
+$ nvidia-smi
+Mon Jun 22 12:51:11 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 595.71.05              Driver Version: 595.71.05      CUDA Version: 13.2     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 2080 Ti     Off |   00000000:08:00.0  On |                  N/A |
+|  0%   35C    P8             21W /  250W |     948MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            2401      G   /usr/lib/xorg/Xorg                      200MiB |
+|    0   N/A  N/A            7507      G   .../8107/usr/lib/firefox/firefox        163MiB |
+|    0   N/A  N/A           13611      C   .../ml/rapids-minimal/bin/python        570MiB |
++-----------------------------------------------------------------------
+
+
+$ sudo apt install python3-pip
+$ pip install --upgrade pip --break-system-packages
+
+Install virtualenv:
+For some reasons the usual pip command didn't work for me. So:
+$ sudo apt install python3-virtualenv
+Create a virtualenv:
+$ virtualenv rapids-minimal /choose any name you like instead of rapids-minimal
+Enter the virtualenv:
+$ source rapids-minimal/bin/activate
+Install the pacakges:
+$ pip install matplotlib pandas numpy scikit-learn seaborn jupyterlab
+Install the latest stable rapids packages you need from here:
+https://docs.rapids.ai/install/#system-req
+I kept it minimal as it is Lubuntu already:
+$ pip install     "cudf-cu13==26.6.*" "cuml-cu13==26.6.*"
+Pytorch for checking:
+https://pytorch.org/get-started/locally/
+Match the CUDA version:
+$ pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu132
+
+Then start the jupyter lab ot jupyter notebook. Depends. I used jupyter lab.
+
+Lubuntu is a great lightweigth distro and it is Ubuntu underneath so the full support is not in question. Some manual labour and more clicking needed compared to 
+Ubuntu but that is just fine if someone knows what they're doing. If you want project specific distro Lubuntu saves more resources at the end of the day and obviously
+it is disposable once your project is finished. But with the full NVIDIA driver support it is a fast and reliable solution. A high end PC should handle Ubuntu just 
+fine. This is just self-interest and testing. The file is provided and I uploaded the jupyer file. Basically the same as the Ubuntu 26.04 jupyter file. After all they
+are Ubuntu distros. But on a laptop with the right GPU Lubuntu can be preferred as it is lighter.
+
+I hope this helps everone who is intersted in this project! Enjoy! Big thanks to the Ubuntu Team to make our lives easier with the right driver solutions! 
